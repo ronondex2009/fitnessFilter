@@ -68,8 +68,8 @@ public class WordFitness {
             while (true) {
                 // add total appearances (gets divided and normalized later)
                 totalQuadgramsReadFromInput++;
-                if (quadgramAppearances.get(String.valueOf(tokenBuffer)) == 0) continue;
                 if (quadgramAppearances.get(String.valueOf(tokenBuffer)) == null) continue;
+                if (quadgramAppearances.get(String.valueOf(tokenBuffer)) == 0) continue;
                 nonNormalizedFitness -= Math.log((double)quadgramAppearances.get(String.valueOf(tokenBuffer)) / totalQuadgrams);
                 
                 // now rotate the next character into the token buffer for next loop (and break at EOF)
