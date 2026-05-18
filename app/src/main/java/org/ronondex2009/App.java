@@ -25,8 +25,8 @@ public class App {
         try (Scanner sc = new Scanner(System.in)) {
             while (sc.hasNextLine()) {
                 String nextLine = sc.nextLine();
-                if (true) {
-                    System.out.println(nextLine + " " + wordFitness.getFitness(nextLine));
+                if (wordFitness.getFitness(nextLine) < 11.5) {
+                    System.out.println(nextLine);
                 }
             }
         }
