@@ -1,6 +1,5 @@
 package org.ronondex2009;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -18,9 +17,7 @@ public class App {
         double fitnessThreshold = 100;
 
         WordFitness wordFitness;
-        try {
-            wordFitness = new WordFitness("");
-        } catch (FileNotFoundException e) { System.err.println("Sample file not found. " + e.getMessage()); return; }
+        wordFitness = new WordFitness().FromSample();
 
         try (Scanner sc = new Scanner(System.in)) {
             while (sc.hasNextLine()) {
