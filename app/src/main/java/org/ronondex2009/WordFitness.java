@@ -33,12 +33,21 @@ public class WordFitness {
      * Quadgram Count</br>
      * TODO add more builder methods for various formats, like XML.
      * @see #FromQuadgramFrequencies()
-     * @param quadgramFrequencyScanner
+     * @param quadgramFrequencyScanner which should use the default space delimiter
      * @return WordFitness, with quadgram frequencies set to those in quadgramFrequencyFile.
      * @throws FileNotFoundException
      */
-    public WordFitness FromQuadgramFrequencies(Scanner quadgramFrequencyScanner) throws FileNotFoundException {
-        throw(new RuntimeException("Not Implemented"));
+    public WordFitness FromQuadgramFrequencies(Scanner quadgramFrequencyScanner) {
+        while (quadgramFrequencyScanner.hasNextLine()) {
+            // read line
+            String quadgram = quadgramFrequencyScanner.next().toLowerCase();
+            int count = quadgramFrequencyScanner.nextInt();
+            quadgramAppearances.put(quadgram, count);
+            totalQuadgrams += count;
+            // move scanner to start of next line.
+            quadgramFrequencyScanner.nextLine(); 
+        }
+        return this;
     }
     
     /**
@@ -50,9 +59,9 @@ public class WordFitness {
      * @return WordFitness, with quadgram frequencies set to those in the default frequency file. 
      * @throws FileNotFoundException
      */
-    public WordFitness FromQuadgramFrequencies() throws FileNotFoundException {
-        try (Scanner sc = new Scanner(getClass().getClassLoader().getResourceAsStream("defaultFrequencies.txt"))) { FromQuadgramFrequencies(sc); } 
-        catch (FileNotFoundException e) { throw(new RuntimeException("Couldn't load defaultSampleText resource as stream. Are you running from a .jar build?")); }
+    public WordFitness FromQuadgramFrequencies() {
+        try (Scanner sc = new Scanner(getClass().getClassLoader().getResourceAsStream("defaultEnglishQuadgramFrequencies.txt"))) { FromQuadgramFrequencies(sc); } 
+        catch (NullPointerException e) { throw(new RuntimeException("Couldn't load defaultSampleText resource as stream. Are you running from a .jar build?")); }
         return this;    
     }
 
@@ -65,9 +74,8 @@ public class WordFitness {
      * @see #FromQuadgramFrequencies(Scanner)
      * @param sampleScanner
      * @return WordFitness with quadgram frequencies harvested from the sample file.
-     * @throws FileNotFoundException
      */
-    public WordFitness FromSample(Scanner sampleScanner) throws FileNotFoundException {
+    public WordFitness FromSample(Scanner sampleScanner) {
         // rotating window of four characters for getting quadgrams
         char[] tokenBuffer = new char[4];
         Pattern originalDelimiter = sampleScanner.delimiter();
@@ -103,8 +111,8 @@ public class WordFitness {
      */
     @Deprecated
     public WordFitness FromSample(){
-        try (Scanner sc = new Scanner(getClass().getClassLoader().getResourceAsStream("defaultFrequencies.txt"))) { FromSample(sc); } 
-        catch (FileNotFoundException e) { throw(new RuntimeException("Couldn't load defaultSampleText resource as stream. Are you running from a .jar build?")); }
+        try (Scanner sc = new Scanner(getClass().getClassLoader().getResourceAsStream("defaultSampleText.txt"))) { FromSample(sc); } 
+        catch (NullPointerException e) { throw(new RuntimeException("Couldn't load defaultSampleText resource as stream. Are you running from a .jar build?")); }
         return this;
     }
 
