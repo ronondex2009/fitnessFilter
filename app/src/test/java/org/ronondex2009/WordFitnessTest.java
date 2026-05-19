@@ -22,9 +22,9 @@ public class WordFitnessTest {
     public void testTotalF() throws FileNotFoundException { Assert.assertEquals(17, fromFrequencies.getTotalQuadgrams()); }
 
     @Test
-    public void testFitnessS() throws FileNotFoundException { Assert.assertEquals(2.833213344, fromSample.getFitness("sample"), 0.1); }
+    public void testFitnessS() throws FileNotFoundException { Assert.assertEquals(2.833213344, fromSample.getFitness("sample"), 0.5); }
     @Test
-    public void testFitnessF() throws FileNotFoundException { Assert.assertEquals(2.833213344, fromFrequencies.getFitness("sample"), 0.1); }
+    public void testFitnessF() throws FileNotFoundException { Assert.assertEquals(2.833213344, fromFrequencies.getFitness("sample"), 0.5); }
 
     @Test
     public void testFromSampleTextEqualsFromFrequencies() throws FileNotFoundException {

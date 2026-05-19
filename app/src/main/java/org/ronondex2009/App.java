@@ -13,16 +13,16 @@ public class App {
 
     public static void main(String[] args) {
         // parse input arguments
-        // TODO this later
-        double fitnessThreshold = 100;
+        // TODO add arguments and help message
+        double fitnessThreshold = 14.0d;
 
         WordFitness wordFitness;
-        wordFitness = new WordFitness().FromSample();
+        wordFitness = new WordFitness().FromQuadgramFrequencies();
 
         try (Scanner sc = new Scanner(System.in)) {
             while (sc.hasNextLine()) {
                 String nextLine = sc.nextLine();
-                if (wordFitness.getFitness(nextLine) < 11.5) {
+                if (wordFitness.getFitness(nextLine) < fitnessThreshold) {
                     System.out.println(nextLine);
                 }
             }

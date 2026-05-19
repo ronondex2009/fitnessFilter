@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class WordFitness {
     private final HashMap<String, Integer> quadgramAppearances;
-    private int totalQuadgrams;
+    private long totalQuadgrams; // Sadly has to be long, not int, because int will overflow.
 
     /**
      * Default blank constructor. 
@@ -130,11 +130,12 @@ public class WordFitness {
                 // add total appearances (gets divided and normalized later)
                 if (quadgramAppearances.get(String.valueOf(tokenBuffer)) != null &&
                     quadgramAppearances.get(String.valueOf(tokenBuffer)) != 0) {
-                    nonNormalizedFitness -= Math.log((double)quadgramAppearances.get(String.valueOf(tokenBuffer)) / totalQuadgrams);
+                    nonNormalizedFitness -= Math.log((double)quadgramAppearances.get(String.valueOf(tokenBuffer)) / (double)totalQuadgrams);
+
                 }
                 else {
                     // The quadgram we have is either null or not found
-                    nonNormalizedFitness -= Math.log((double)1/totalQuadgrams);
+                    nonNormalizedFitness -= Math.log(1.0 / (double)totalQuadgrams);
                 }
                 totalQuadgramsReadFromInput++;
 
@@ -167,7 +168,7 @@ public class WordFitness {
         return quadgramAppearances;
     }
 
-    public int getTotalQuadgrams() {
+    public long getTotalQuadgrams() {
         return totalQuadgrams;
     }
 }
